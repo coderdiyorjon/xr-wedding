@@ -1,0 +1,34 @@
+/* ===== Floating Particles ===== */
+
+.floating-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  top: -5%;
+  display: block;
+  animation: floatDown linear infinite;
+  will-change: transform;
+}
+
+@keyframes floatDown {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity, 0.3);
+  }
+  90% {
+    opacity: var(--particle-opacity, 0.3);
+  }
+  100% {
+    transform: translateY(110vh) translateX(var(--drift, 20px)) rotate(360deg);
+    opacity: 0;
+  }
+}

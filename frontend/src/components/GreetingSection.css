@@ -1,0 +1,132 @@
+/* ===== Greeting Section ===== */
+
+.greeting {
+  padding: var(--section-padding);
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-pink-light) 50%, var(--color-cream) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.greeting__container {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+/* Corner ornaments */
+.greeting__corner-ornament {
+  position: absolute;
+  color: var(--color-gold);
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+
+.greeting__corner-ornament--top-left {
+  top: 16px;
+  left: 20px;
+  transform: rotate(-90deg);
+}
+
+.greeting__corner-ornament--top-right {
+  top: 16px;
+  right: 20px;
+  transform: rotate(0deg) scaleX(-1);
+}
+
+.greeting__corner-ornament--bottom-left {
+  bottom: 16px;
+  left: 20px;
+  transform: rotate(180deg) scaleX(-1);
+}
+
+.greeting__corner-ornament--bottom-right {
+  bottom: 16px;
+  right: 20px;
+  transform: rotate(90deg);
+}
+
+/* Ornament */
+.greeting__ornament-top {
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  letter-spacing: 12px;
+  margin-bottom: 24px;
+}
+
+/* Heading */
+.greeting__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  color: var(--color-burgundy);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* Divider */
+.greeting__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0 32px;
+}
+
+.greeting__divider-line {
+  display: block;
+  width: 70px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.greeting__divider-icon {
+  font-size: 1.4rem;
+}
+
+/* Text */
+.greeting__text {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  color: var(--color-dark);
+  line-height: 1.9;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.greeting__text--secondary {
+  color: var(--color-dark-muted);
+  font-size: clamp(0.88rem, 2.3vw, 1.05rem);
+  font-style: italic;
+}
+
+/* Bottom ornament */
+.greeting__ornament-bottom {
+  color: var(--color-burgundy);
+  font-size: 2rem;
+  margin-top: 24px;
+  opacity: 0.6;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .greeting {
+    padding: var(--section-padding-mobile);
+  }
+
+  .greeting__container {
+    padding: 40px 24px;
+  }
+
+  .greeting__corner-ornament {
+    font-size: 1.2rem;
+  }
+}

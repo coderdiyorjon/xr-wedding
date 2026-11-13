@@ -1,0 +1,305 @@
+/* ===== Scroll-Driven LOVE Typography Hero Section ===== */
+
+.love-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-cream);
+  overflow: hidden;
+}
+
+.love-hero__stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* Background elements */
+.love-hero__bg-glow {
+  position: absolute;
+  width: 70vw;
+  height: 70vh;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(212, 175, 55, 0.12) 0%,
+    rgba(245, 230, 224, 0.3) 45%,
+    transparent 70%
+  );
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.love-hero__bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top-Right: Groom & Bride Names */
+.love-hero__names {
+  position: absolute;
+  top: clamp(24px, 5vh, 48px);
+  right: clamp(24px, 5vw, 64px);
+  z-index: 10;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.love-hero__names-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2.4vw, 1.85rem);
+  font-weight: 600;
+  color: var(--color-burgundy);
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+
+.love-hero__names-date {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 500;
+  color: var(--color-gold-dark);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Bottom-Left: Subtitle */
+.love-hero__subtitle {
+  position: absolute;
+  bottom: clamp(24px, 5vh, 48px);
+  left: clamp(24px, 5vw, 64px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.love-hero__subtitle-line {
+  display: block;
+  width: clamp(30px, 5vw, 60px);
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+.love-hero__subtitle-text {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.8vw, 1.35rem);
+  font-style: italic;
+  color: var(--color-dark-muted);
+  letter-spacing: 1px;
+}
+
+/* Floral arrangements */
+.love-hero__floral {
+  position: absolute;
+  width: clamp(140px, 22vw, 280px);
+  height: clamp(140px, 22vw, 280px);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: transform 0.2s ease-out;
+}
+
+.love-hero__floral-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.love-hero__floral--tl {
+  top: 0;
+  left: 0;
+  animation: floralSwayTL 7s ease-in-out infinite alternate;
+}
+
+.love-hero__floral--br {
+  bottom: 0;
+  right: 0;
+  animation: floralSwayBR 8s ease-in-out infinite alternate;
+}
+
+@keyframes floralSwayTL {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(4deg) scale(1.03); }
+}
+
+@keyframes floralSwayBR {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(-4deg) scale(1.03); }
+}
+
+/* Center: Vertically stacked LOVE letters */
+.love-hero__love-container {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  line-height: 0.78;
+}
+
+.love-letter {
+  font-family: var(--font-heading);
+  font-size: clamp(5.5rem, 17vh, 13.5rem);
+  font-weight: 300;
+  color: var(--color-burgundy);
+  letter-spacing: 0.05em;
+  text-align: center;
+  will-change: transform, opacity;
+  display: inline-block;
+  text-shadow: 0 4px 20px rgba(139, 34, 82, 0.08);
+  transition: color 0.3s ease;
+}
+
+/* Center reveal that emerges as letters part */
+.love-hero__center-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(85vw, 420px);
+  will-change: transform, opacity;
+}
+
+.center-reveal__ornament {
+  color: var(--color-gold);
+  font-size: 0.9rem;
+  letter-spacing: 8px;
+  margin-bottom: 2px;
+}
+
+.center-reveal__monogram {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-burgundy);
+  line-height: 1;
+}
+
+.center-reveal__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 500;
+  color: var(--color-dark);
+  letter-spacing: 2px;
+}
+
+.center-reveal__date {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: var(--color-gold-dark);
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.center-reveal__scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.scroll-mouse {
+  width: 18px;
+  height: 28px;
+  border: 1.5px solid var(--color-burgundy);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-mouse::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 5px;
+  background-color: var(--color-gold);
+  border-radius: 2px;
+  animation: mouseWheel 1.6s ease-in-out infinite;
+}
+
+@keyframes mouseWheel {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 10px); opacity: 0; }
+}
+
+.scroll-caption {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-dark-muted);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .love-hero__floral--tl,
+  .love-hero__floral--br,
+  .scroll-mouse::after {
+    animation: none;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  .love-hero__stage {
+    padding: 20px;
+  }
+
+  .love-letter {
+    font-size: clamp(4.5rem, 15vh, 7.5rem);
+    line-height: 0.8;
+  }
+
+  .love-hero__names {
+    top: 20px;
+    right: 20px;
+  }
+
+  .love-hero__names-text {
+    font-size: 1.05rem;
+  }
+
+  .love-hero__subtitle {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .love-hero__subtitle-text {
+    font-size: 0.85rem;
+  }
+
+  .love-hero__floral {
+    width: 120px;
+    height: 120px;
+  }
+}
