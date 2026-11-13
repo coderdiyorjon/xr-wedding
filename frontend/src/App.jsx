@@ -6,7 +6,6 @@ import GreetingSection from './components/GreetingSection';
 import CountdownSection from './components/CountdownSection';
 import EventDetails from './components/EventDetails';
 import LocationSection from './components/LocationSection';
-import GallerySection from './components/GallerySection';
 import WishesSection from './components/WishesSection';
 import Footer from './components/Footer';
 import MusicToggle from './components/MusicToggle';
@@ -139,7 +138,6 @@ function App() {
         <CountdownSection />
         <EventDetails />
         <LocationSection />
-        <GallerySection isActive={isInvitationOpen} />
         <WishesSection />
         <Footer />
       </main>

@@ -2,14 +2,13 @@
 
 .wishes {
   padding: var(--section-padding);
-  background: linear-gradient(180deg, var(--color-black) 0%, #241c15 10%, var(--color-ivory) 22%, var(--color-ivory) 100%);
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-ivory) 16%, var(--color-ivory) 100%);
   color: var(--color-brown);
 }
 
 .wishes__container {
   max-width: 720px;
   margin: 0 auto;
-  padding-top: 28px;
   text-align: center;
 }
 
