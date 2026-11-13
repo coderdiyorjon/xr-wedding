@@ -19,7 +19,7 @@ function Footer() {
         <div className="footer__monogram">X &amp; R</div>
 
         <h3 className="footer__names">Xurshidjon &amp; Ruxshonaoy</h3>
-        <p className="footer__date">06 · 12 · 2026</p>
+        <p className="footer__date">21 · 11 · 2026</p>
 
         <div className="ornament" aria-hidden="true">
           <span className="ornament-line" />

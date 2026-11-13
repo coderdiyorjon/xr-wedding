@@ -41,7 +41,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15 }}
         >
-          Nikoh to&apos;yi taklifnomasi
+          Fotiha to&apos;yi taklifnomasi
         </motion.p>
 
         <motion.div
@@ -59,7 +59,7 @@ function HeroSection() {
             <span className="cinematic-hero__rule-dot" />
             <span className="cinematic-hero__rule-line" />
           </div>
-          <p className="cinematic-hero__date">06.12.2026</p>
+          <p className="cinematic-hero__date">21.11.2026</p>
         </motion.div>
 
         <motion.div

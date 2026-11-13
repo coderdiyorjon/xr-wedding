@@ -10,7 +10,7 @@ function GreetingSection() {
   });
 
   return (
-    <section className="greeting" ref={ref} aria-label="Nikoh to'yi taklifnomasi matni">
+    <section className="greeting" ref={ref} aria-label="Fotiha to'yi taklifnomasi matni">
       <motion.article
         className="greeting__card"
         initial={{ opacity: 0, y: 36 }}
@@ -71,7 +71,7 @@ function GreetingSection() {
           >
             Bu yil hayotimizdagi eng go&apos;zal kunlardan biri bo&apos;ladi. Uni
             yaqinlarimiz va do&apos;stlarimiz davrasida o&apos;tkazishni xohlaymiz.
-            Katta mamnuniyat bilan sizni nikoh to&apos;yimizga taklif qilamiz!
+            Katta mamnuniyat bilan sizni fotiha to&apos;yimizga taklif qilamiz!
           </motion.p>
 
           <motion.p

@@ -3,11 +3,11 @@ import { useInView } from 'react-intersection-observer';
 import './LocationSection.css';
 
 const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/place/40%C2%B009'17.3%22N+67%C2%B048'53.9%22E/";
+  'https://www.google.com/maps/search/?api=1&query=40.111520,67.856488';
 const YANDEX_MAPS_URL =
-  'https://yandex.uz/maps/21606/jizzakh/?ll=67.815084%2C40.154812&mode=search&sll=67.814961%2C40.154811&text=40.154811%2C67.814961&z=21';
+  'https://yandex.uz/maps/org/dunyo_/221210299421/?ll=67.856488%2C40.111520&z=18.6';
 const GOOGLE_EMBED_URL =
-  'https://maps.google.com/maps?q=40.154811,67.814961&z=16&output=embed';
+  'https://maps.google.com/maps?q=40.111520,67.856488&z=17&output=embed';
 
 function LocationSection() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -18,7 +18,7 @@ function LocationSection() {
         <p className="section-eyebrow">Geografik joylashuv</p>
         <h2 className="section-title">Manzil va yo&apos;nalish</h2>
         <p className="section-subtitle">
-          Koordinatalar: 40.154811, 67.814961 (40°09&apos;17.3&quot;N 67°48&apos;53.9&quot;E)
+          Manzil: Dunyo Restaurant (40.111520, 67.856488)
         </p>
 
         <motion.div
@@ -30,14 +30,14 @@ function LocationSection() {
           <iframe
             className="location__map"
             src={GOOGLE_EMBED_URL}
-            title="Marosim joylashuvi xaritasi"
+            title="Dunyo Restaurant joylashuvi xaritasi"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
           <div className="location__map-badge" aria-hidden="true">
             <span className="location__map-dot" />
-            <span>40.154811, 67.814961</span>
+            <span>Dunyo Restaurant</span>
           </div>
         </motion.div>
 

@@ -32,7 +32,7 @@ function CountdownSection() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <p className="section-eyebrow">Toshkent vaqti bilan · 06.12.2026</p>
+        <p className="section-eyebrow">Toshkent vaqti bilan · 21.11.2026</p>
         <h2 className="section-title section-title--light">
           Baxtli kunimizgacha
         </h2>

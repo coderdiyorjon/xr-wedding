@@ -1,5 +1,5 @@
-// 2026-yil 6-dekabr, soat 18:00 (Asia/Tashkent, UTC+05:00)
-export const WEDDING_ISO_TASHKENT = '2026-12-06T18:00:00+05:00';
+// 2026-yil 21-noyabr, soat 13:00 (Asia/Tashkent, UTC+05:00)
+export const WEDDING_ISO_TASHKENT = '2026-11-21T13:00:00+05:00';
 export const WEDDING_TIMESTAMP = new Date(WEDDING_ISO_TASHKENT).getTime();
 
 /**

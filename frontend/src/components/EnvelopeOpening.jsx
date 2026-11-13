@@ -51,7 +51,7 @@ function EnvelopeOpening({ onOpen, isOpen }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <p className="envelope-eyebrow">06 · 12 · 2026</p>
+              <p className="envelope-eyebrow">21 · 11 · 2026</p>
               <p className="envelope-message">
                 Sizni hayotimizning eng go&apos;zal va unutilmas kuniga taklif etamiz
               </p>
@@ -68,11 +68,11 @@ function EnvelopeOpening({ onOpen, isOpen }) {
                 {/* Emerging Invitation Card */}
                 <div className="envelope-card">
                   <div className="envelope-card-inner">
-                    <span className="envelope-card-eyebrow">Nikoh marosimi</span>
+                    <span className="envelope-card-eyebrow">Fotiha to&apos;yi</span>
                     <div className="envelope-card-monogram">X &amp; R</div>
                     <div className="envelope-card-names">Xurshidjon &amp; Ruxshonaoy</div>
                     <div className="envelope-card-divider" />
-                    <div className="envelope-card-date">2026-yil, 6-dekabr</div>
+                    <div className="envelope-card-date">2026-yil, 21-noyabr</div>
                   </div>
                 </div>
 

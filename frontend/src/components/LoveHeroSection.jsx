@@ -175,7 +175,7 @@ function LoveHeroSection({ isActive = true }) {
         {/* Top-Right: Couple Names */}
         <div className="love-hero__names" ref={namesRef}>
           <span className="love-hero__names-text">Xurshidjon &amp; Ruxshonaoy</span>
-          <span className="love-hero__names-date">06.12.2026</span>
+          <span className="love-hero__names-date">21.11.2026</span>
         </div>
 
         {/* Bottom-Left: Romantic Uzbek Phrase */}
@@ -191,7 +191,7 @@ function LoveHeroSection({ isActive = true }) {
           <BotanicalOrnament variant="rose-crest" tone="dark" />
           <div className="center-reveal__monogram">X &amp; R</div>
           <h2 className="center-reveal__heading">Abadiy muhabbat</h2>
-          <p className="center-reveal__date">2026-yil, 6-dekabr</p>
+          <p className="center-reveal__date">2026-yil, 21-noyabr</p>
         </div>
 
         {/* Vertical LOVE Stack */}
