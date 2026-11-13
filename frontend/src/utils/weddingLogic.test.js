@@ -9,6 +9,7 @@ import {
   validateWishInput,
   checkWishCooldown,
 } from './wishValidation.js';
+import { resolveApiBaseUrl } from './api.js';
 
 test('calculateTimeLeft computes exact days, hours, minutes, seconds for Asia/Tashkent wedding date', () => {
   const twoDaysThreeHoursMs = (2 * 24 + 3) * 60 * 60 * 1000 + 14 * 60 * 1000 + 9 * 1000;
@@ -65,4 +66,14 @@ test('checkWishCooldown blocks rapid repeat submissions and allows after cooldow
   const allowed = checkWishCooldown(10_000, 26_000, 15_000);
   assert.equal(allowed.allowed, true);
   assert.equal(allowed.remainingSeconds, 0);
+});
+
+test('resolveApiBaseUrl handles Railway deployed backend URLs and ignores localhost leaks', () => {
+  assert.equal(resolveApiBaseUrl(''), '');
+  assert.equal(resolveApiBaseUrl('http://localhost:3001'), '');
+  assert.equal(resolveApiBaseUrl('http://127.0.0.1:3001/'), '');
+  assert.equal(
+    resolveApiBaseUrl('https://xr-wedding-backend.up.railway.app/'),
+    'https://xr-wedding-backend.up.railway.app'
+  );
 });

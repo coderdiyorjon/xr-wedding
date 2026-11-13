@@ -1,5 +1,26 @@
-// Always use same-origin /api routes (served by Express on port 3000 or proxied by Vite)
-const API_URL = '';
+/**
+ * Resolve API base URL cleanly across:
+ * - Separate frontend/backend Railway services (VITE_API_URL=https://...)
+ * - Unified single-service deployments (same-origin /api)
+ * - Local Vite dev server (proxied /api -> localhost:3001)
+ */
+export function resolveApiBaseUrl(rawUrl) {
+  const trimmed = typeof rawUrl === 'string' ? rawUrl.trim().replace(/\/+$/, '') : '';
+  if (!trimmed) return '';
+
+  // Ignore localhost URLs so Vite's /api proxy or same-origin server handles local/sandbox requests
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(trimmed)) {
+    return '';
+  }
+
+  return trimmed;
+}
+
+const envApiUrl =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? import.meta.env.VITE_API_URL
+    : '';
+const API_URL = resolveApiBaseUrl(envApiUrl);
 
 /**
  * Submit RSVP response

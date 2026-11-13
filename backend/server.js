@@ -2,14 +2,30 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const { initDatabase, addWish, getWishes, addRsvp, getRsvpStats } = require('./database');
+const {
+  initDatabase,
+  getDatabaseMode,
+  addWish,
+  getWishes,
+  addRsvp,
+  getRsvpStats,
+  closeDatabase,
+} = require('./database');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = '0.0.0.0';
 
 // ── Middleware ───────────────────────────────────────────────────────
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean)
+  : null;
+
+app.use(
+  cors({
+    origin: allowedOrigins && allowedOrigins.length > 0 ? allowedOrigins : true,
+  })
+);
 app.use(express.json({ limit: '32kb' }));
 
 // Simple in-memory rate limit & duplicate spam guard for wishes
@@ -40,13 +56,17 @@ function checkSpamGuard(ip, name, message) {
 
 // ── Health check ────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({
+    status: 'ok',
+    database: getDatabaseMode(),
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // ── Wishes endpoints ────────────────────────────────────────────────
 
 // POST /api/wishes — Submit a congratulatory message
-app.post('/api/wishes', (req, res) => {
+app.post('/api/wishes', async (req, res) => {
   try {
     const { name, message, website } = req.body || {};
 
@@ -74,7 +94,7 @@ app.post('/api/wishes', (req, res) => {
       return res.status(429).json({ error: spamError });
     }
 
-    const wish = addWish({ name: name.trim(), message: message.trim() });
+    const wish = await addWish({ name: name.trim(), message: message.trim() });
     res.status(201).json(wish);
   } catch (err) {
     console.error('Error adding wish:', err);
@@ -83,9 +103,9 @@ app.post('/api/wishes', (req, res) => {
 });
 
 // GET /api/wishes — Get all wishes (newest first)
-app.get('/api/wishes', (_req, res) => {
+app.get('/api/wishes', async (_req, res) => {
   try {
-    const wishes = getWishes();
+    const wishes = await getWishes();
     res.json(wishes);
   } catch (err) {
     console.error('Error fetching wishes:', err);
@@ -95,7 +115,7 @@ app.get('/api/wishes', (_req, res) => {
 
 // ── RSVP endpoints ──────────────────────────────────────────────────
 
-app.post('/api/rsvp', (req, res) => {
+app.post('/api/rsvp', async (req, res) => {
   try {
     const { name, attending, guestCount } = req.body || {};
 
@@ -109,7 +129,7 @@ app.post('/api/rsvp', (req, res) => {
       return res.status(400).json({ error: "Mehmonlar soni musbat bo'lishi kerak." });
     }
 
-    const rsvp = addRsvp({
+    const rsvp = await addRsvp({
       name: name.trim(),
       attending,
       guestCount: attending ? (guestCount || 1) : 0,
@@ -121,9 +141,9 @@ app.post('/api/rsvp', (req, res) => {
   }
 });
 
-app.get('/api/rsvp', (_req, res) => {
+app.get('/api/rsvp', async (_req, res) => {
   try {
-    const stats = getRsvpStats();
+    const stats = await getRsvpStats();
     res.json(stats);
   } catch (err) {
     console.error('Error fetching RSVP stats:', err);
@@ -145,8 +165,27 @@ if (fs.existsSync(frontendDist)) {
 }
 
 // ── Start server ────────────────────────────────────────────────────
-initDatabase();
+let server = null;
 
-app.listen(PORT, HOST, () => {
-  console.log(`XR Wedding server listening on http://${HOST}:${PORT}`);
+async function startServer() {
+  await initDatabase();
+  server = app.listen(PORT, HOST, () => {
+    console.log(`XR Wedding server listening on http://${HOST}:${PORT} (db: ${getDatabaseMode()})`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error('Failed to start XR Wedding server:', err);
+  process.exit(1);
 });
+
+async function handleShutdown() {
+  if (server) {
+    server.close();
+  }
+  await closeDatabase().catch(() => {});
+  process.exit(0);
+}
+
+process.on('SIGTERM', handleShutdown);
+process.on('SIGINT', handleShutdown);
