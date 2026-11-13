@@ -1,106 +1,77 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import BotanicalOrnament from './BotanicalOrnament';
 import './HeroSection.css';
 
-function HeroSection({ onOpen, isOpen }) {
+function HeroSection() {
   return (
-    <section className={`hero ${isOpen ? 'hero--collapsed' : ''}`}>
-      {/* Background decorative elements */}
-      <div className="hero__bg-pattern" />
-      <div className="hero__bg-overlay" />
+    <section className="cinematic-hero" aria-label="Asosiy taklifnoma sahifasi">
+      {/* Warm golden backlighting behind couple portrait */}
+      <div className="cinematic-hero__glow" aria-hidden="true" />
 
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            className="hero__content"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50, transition: { duration: 0.5 } }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          >
-            {/* Top ornament */}
-            <motion.div
-              className="hero__top-ornament"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              ✦
-            </motion.div>
+      {/* Backlit couple silhouette photograph (photo2.jpg) */}
+      <div className="cinematic-hero__media" aria-hidden="true">
+        <img
+          src="/images/photo2.jpg"
+          alt="Xurshidjon va Ruxshonaoy raqs tushmoqda"
+          className="cinematic-hero__image"
+        />
+        <div className="cinematic-hero__vignette" />
+      </div>
 
-            {/* Monogram */}
-            <motion.div
-              className="hero__monogram"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-              <span className="hero__monogram-letter">X</span>
-              <span className="hero__monogram-ampersand">&</span>
-              <span className="hero__monogram-letter">R</span>
-            </motion.div>
+      {/* Delicate editorial border and corner rose botanicals */}
+      <div className="cinematic-hero__border" aria-hidden="true" />
+      <div className="cinematic-hero__floral cinematic-hero__floral--tl" aria-hidden="true">
+        <BotanicalOrnament variant="corner" tone="dark" />
+      </div>
+      <div className="cinematic-hero__floral cinematic-hero__floral--tr" aria-hidden="true">
+        <BotanicalOrnament variant="corner" tone="dark" />
+      </div>
+      <div className="cinematic-hero__floral cinematic-hero__floral--bl" aria-hidden="true">
+        <BotanicalOrnament variant="corner" tone="dark" />
+      </div>
+      <div className="cinematic-hero__floral cinematic-hero__floral--br" aria-hidden="true">
+        <BotanicalOrnament variant="corner" tone="dark" />
+      </div>
 
-            {/* Decorative line */}
-            <motion.div
-              className="hero__divider"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }}
-            >
-              <span className="hero__divider-line" />
-              <span className="hero__divider-diamond">◆</span>
-              <span className="hero__divider-line" />
-            </motion.div>
+      {/* Editorial Typography Overlay */}
+      <div className="cinematic-hero__content">
+        <motion.p
+          className="cinematic-hero__eyebrow"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15 }}
+        >
+          Nikoh to&apos;yi taklifnomasi
+        </motion.p>
 
-            {/* Full Names */}
-            <motion.h1
-              className="hero__names"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-            >
-              Xurshidjon
-              <span className="hero__names-and">&</span>
-              Ruxshonaoy
-            </motion.h1>
+        <motion.div
+          className="cinematic-hero__titles"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.35 }}
+        >
+          <span className="cinematic-hero__monogram">X &amp; R</span>
+          <h1 className="cinematic-hero__names">
+            Xurshidjon <span className="cinematic-hero__amp">&amp;</span> Ruxshonaoy
+          </h1>
+          <div className="cinematic-hero__rule" aria-hidden="true">
+            <span className="cinematic-hero__rule-line" />
+            <span className="cinematic-hero__rule-dot" />
+            <span className="cinematic-hero__rule-line" />
+          </div>
+          <p className="cinematic-hero__date">06.12.2026</p>
+        </motion.div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="hero__subtitle"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.3, duration: 0.8 }}
-            >
-              Biz turmush quramiz!
-            </motion.p>
-
-            {/* Bottom ornament */}
-            <motion.div
-              className="hero__bottom-ornament"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.6 }}
-            >
-              <span className="hero__ornament-line" />
-              <span className="hero__ornament-heart">♥</span>
-              <span className="hero__ornament-line" />
-            </motion.div>
-
-            {/* CTA Button */}
-            <motion.button
-              className="hero__cta"
-              onClick={onOpen}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="hero__cta-icon">💌</span>
-              Taklifnomani ochish
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <motion.div
+          className="cinematic-hero__scroll-cue"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.8 }}
+        >
+          <span className="cinematic-hero__scroll-text">Pastga suring</span>
+          <span className="cinematic-hero__scroll-line" aria-hidden="true" />
+        </motion.div>
+      </div>
     </section>
   );
 }

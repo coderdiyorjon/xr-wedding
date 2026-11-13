@@ -1,101 +1,73 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { calculateTimeLeft, formatCountdownUnit } from '../utils/countdown';
 import './CountdownSection.css';
 
-const WEDDING_DATE = new Date('2026-12-06T18:00:00+05:00').getTime();
-
-function getTimeLeft() {
-  const now = Date.now();
-  const diff = WEDDING_DATE - now;
-
-  if (diff <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  }
-
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-}
-
 function CountdownSection() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(getTimeLeft());
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
   const timeUnits = [
-    { value: timeLeft.days, label: 'Kunlar' },
-    { value: timeLeft.hours, label: 'Soatlar' },
-    { value: timeLeft.minutes, label: 'Daqiqalar' },
-    { value: timeLeft.seconds, label: 'Soniyalar' },
+    { value: timeLeft.days, label: 'Kun' },
+    { value: timeLeft.hours, label: 'Soat' },
+    { value: timeLeft.minutes, label: 'Daqiqa' },
+    { value: timeLeft.seconds, label: 'Soniya' },
   ];
 
   return (
-    <section className="countdown" ref={ref}>
+    <section className="countdown" ref={ref} aria-label="To'y kunigacha qolgan vaqt">
+      <div className="countdown__glow" aria-hidden="true" />
       <motion.div
         className="countdown__container"
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <motion.div
-          className="countdown__ornament"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          ✦
-        </motion.div>
+        <p className="section-eyebrow">Toshkent vaqti bilan · 06.12.2026</p>
+        <h2 className="section-title section-title--light">
+          Baxtli kunimizgacha
+        </h2>
 
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          To'y kunigacha
-        </motion.h2>
-
-        <div className="ornament">
+        <div className="ornament" aria-hidden="true">
           <span className="ornament-line" />
-          <span className="ornament-symbol">⏳</span>
+          <span className="ornament-diamond" />
           <span className="ornament-line" />
         </div>
 
-        <div className="countdown__grid">
-          {timeUnits.map((unit, index) => (
-            <motion.div
-              className="countdown__card"
-              key={unit.label}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-            >
-              <div className="countdown__card-inner">
-                <motion.span
-                  className="countdown__number"
-                  key={unit.value}
-                  initial={{ scale: 1.1, opacity: 0.7 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {String(unit.value).padStart(2, '0')}
-                </motion.span>
+        <p className="countdown__couple">Xurshidjon &amp; Ruxshonaoy</p>
+
+        {timeLeft.isPassed ? (
+          <p className="countdown__passed">
+            Baxtli to&apos;y kunimiz yetib keldi!
+          </p>
+        ) : (
+          <div className="countdown__grid" role="timer" aria-live="polite">
+            {timeUnits.map((unit, index) => (
+              <motion.div
+                className="countdown__item"
+                key={unit.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: 0.15 + index * 0.08 }}
+              >
+                <span className="countdown__number">
+                  {formatCountdownUnit(unit.value)}
+                </span>
+                <span className="countdown__rule" aria-hidden="true" />
                 <span className="countdown__label">{unit.label}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </motion.div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import BotanicalOrnament from './BotanicalOrnament';
 import './EnvelopeOpening.css';
 
 function EnvelopeOpening({ onOpen, isOpen }) {
@@ -9,99 +10,108 @@ function EnvelopeOpening({ onOpen, isOpen }) {
     if (isOpening || isOpen) return;
     setIsOpening(true);
 
-    // Give time for the 3D flap opening and card rise animation before revealing the website
-    setTimeout(() => {
-      onOpen();
-    }, 1400);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    setTimeout(
+      () => {
+        onOpen();
+      },
+      prefersReducedMotion ? 150 : 1250
+    );
   };
 
   return (
     <AnimatePresence>
       {!isOpen && (
-        <motion.div
+        <motion.section
           className="envelope-screen"
+          aria-label="To'y taklifnomasi konverti"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          exit={{ opacity: 0, scale: 1.03 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="envelope-backdrop" />
+          {/* Warm golden candlelight glow */}
+          <div className="envelope-ambient-glow" aria-hidden="true" />
+          <div className="envelope-frame" aria-hidden="true" />
 
-          {/* Ambient decorative particles */}
-          <div className="envelope-ambient-glow" />
+          {/* Corner rose botanical illustrations */}
+          <div className="envelope-floral envelope-floral--tl" aria-hidden="true">
+            <BotanicalOrnament variant="corner" tone="dark" />
+          </div>
+          <div className="envelope-floral envelope-floral--br" aria-hidden="true">
+            <BotanicalOrnament variant="corner" tone="dark" />
+          </div>
 
-          <div
-            className={`envelope-wrapper ${isOpening ? 'is-opening' : ''}`}
-            onClick={handleEnvelopeClick}
-            role="button"
-            tabIndex={0}
-            aria-label="Taklifnomani ochish uchun bosing"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleEnvelopeClick();
-              }
-            }}
-          >
-            {/* Top hint */}
+          <div className="envelope-stage">
             <motion.div
-              className="envelope-hint"
-              initial={{ opacity: 0, y: -15 }}
+              className="envelope-intro"
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="envelope-hint-icon">✦</span>
-              <span className="envelope-hint-text">Taklifnomani ochish uchun bosing</span>
-              <span className="envelope-hint-icon">✦</span>
+              <p className="envelope-eyebrow">06 · 12 · 2026</p>
+              <p className="envelope-message">
+                Sizni hayotimizning eng go&apos;zal va unutilmas kuniga taklif etamiz
+              </p>
             </motion.div>
 
-            {/* The 3D Envelope Container */}
-            <div className="envelope">
-              {/* Back paper base */}
-              <div className="envelope-back" />
+            {/* Interactive 3D Envelope */}
+            <div
+              className={`envelope-wrapper ${isOpening ? 'is-opening' : ''}`}
+              onClick={handleEnvelopeClick}
+            >
+              <div className="envelope" aria-hidden="true">
+                <div className="envelope-back" />
 
-              {/* Invitation card sliding out */}
-              <div className="envelope-card">
-                <div className="envelope-card-inner">
-                  <div className="envelope-card-border" />
-                  <div className="envelope-card-monogram">X & R</div>
-                  <div className="envelope-card-names">Xurshidjon & Ruxshonaoy</div>
-                  <div className="envelope-card-date">06.12.2026</div>
-                  <div className="envelope-card-quote">To'y taklifnomasi</div>
-                </div>
-              </div>
-
-              {/* Left and Right inner pocket folds */}
-              <div className="envelope-fold-left" />
-              <div className="envelope-fold-right" />
-
-              {/* Bottom fold pocket */}
-              <div className="envelope-fold-bottom" />
-
-              {/* Top triangular flap with 3D folding */}
-              <div className="envelope-flap" />
-
-              {/* Center Golden Wax Seal Button (inspired by reference image) */}
-              <div className="envelope-seal">
-                <div className="seal-outer-rim">
-                  <div className="seal-stitched-circle" />
-                  <div className="seal-inner-body">
-                    <span className="seal-monogram">X & R</span>
+                {/* Emerging Invitation Card */}
+                <div className="envelope-card">
+                  <div className="envelope-card-inner">
+                    <span className="envelope-card-eyebrow">Nikoh marosimi</span>
+                    <div className="envelope-card-monogram">X &amp; R</div>
+                    <div className="envelope-card-names">Xurshidjon &amp; Ruxshonaoy</div>
+                    <div className="envelope-card-divider" />
+                    <div className="envelope-card-date">2026-yil, 6-dekabr</div>
                   </div>
                 </div>
-                <div className="seal-glow" />
+
+                {/* Envelope Pockets */}
+                <div className="envelope-fold-left" />
+                <div className="envelope-fold-right" />
+                <div className="envelope-fold-bottom" />
+
+                {/* 3D Rotating Flap */}
+                <div className="envelope-flap" />
+
+                {/* Gold Wax Seal */}
+                <div className="envelope-seal">
+                  <div className="seal-outer-rim">
+                    <div className="seal-stitched-circle" />
+                    <div className="seal-inner-body">
+                      <span className="seal-monogram">X&amp;R</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Subtitle below envelope */}
-            <motion.p
-              className="envelope-caption"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+            {/* Accessible Primary Action Button */}
+            <motion.button
+              type="button"
+              className="envelope-open-btn"
+              onClick={handleEnvelopeClick}
+              disabled={isOpening}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.8 }}
             >
-              Xurshidjon & Ruxshonaoy
-            </motion.p>
+              <span className="envelope-open-btn__line" aria-hidden="true" />
+              <span className="envelope-open-btn__text">Taklifnomani ochish</span>
+              <span className="envelope-open-btn__line" aria-hidden="true" />
+            </motion.button>
           </div>
-        </motion.div>
+        </motion.section>
       )}
     </AnimatePresence>
   );

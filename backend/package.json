@@ -1,11 +1,12 @@
+
 {
-  "name": "xr-wedding-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Backend API for XR Wedding invitation website",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node --watch server.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.11.1",

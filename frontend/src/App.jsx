@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import EnvelopeOpening from './components/EnvelopeOpening';
+import HeroSection from './components/HeroSection';
 import LoveHeroSection from './components/LoveHeroSection';
 import GreetingSection from './components/GreetingSection';
 import CountdownSection from './components/CountdownSection';
@@ -12,84 +13,133 @@ import MusicToggle from './components/MusicToggle';
 import FloatingParticles from './components/FloatingParticles';
 import './App.css';
 
+const TARGET_VOLUME = 0.5;
+
 function App() {
-  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const [isInvitationOpen, setIsInvitationOpen] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return new URLSearchParams(window.location.search).get('autostart') === '1';
+  });
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [hasAudioError, setHasAudioError] = useState(false);
   const audioRef = useRef(null);
-  const contentRef = useRef(null);
+  const fadeTimerRef = useRef(null);
+
+  const rampVolume = useCallback((toVolume, onComplete) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (fadeTimerRef.current) {
+      clearInterval(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+
+    const startVolume = audio.volume;
+    const steps = 16;
+    let step = 0;
+
+    fadeTimerRef.current = setInterval(() => {
+      step += 1;
+      const progress = step / steps;
+      audio.volume = Math.max(
+        0,
+        Math.min(1, startVolume + (toVolume - startVolume) * progress)
+      );
+
+      if (step >= steps) {
+        clearInterval(fadeTimerRef.current);
+        fadeTimerRef.current = null;
+        if (onComplete) onComplete();
+      }
+    }, 50);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (fadeTimerRef.current) {
+        clearInterval(fadeTimerRef.current);
+      }
+    };
+  }, []);
+
+  const startAudioSmoothly = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || hasAudioError) return;
+
+    audio.volume = 0;
+    audio
+      .play()
+      .then(() => {
+        setIsMusicPlaying(true);
+        rampVolume(TARGET_VOLUME);
+      })
+      .catch(() => {
+        setIsMusicPlaying(false);
+      });
+  }, [hasAudioError, rampVolume]);
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true);
+    startAudioSmoothly();
 
-    // Try to play music automatically on user interaction
-    if (audioRef.current) {
-      audioRef.current
-        .play()
-        .then(() => {
-          setIsMusicPlaying(true);
-        })
-        .catch(() => {
-          // Autoplay blocked by browser policy - user can toggle manually
-          setIsMusicPlaying(false);
-        });
-    }
-
-    // Smooth scroll to top of content
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }, 60);
   };
 
   const toggleMusic = () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio || hasAudioError) return;
 
     if (isMusicPlaying) {
-      audioRef.current.pause();
       setIsMusicPlaying(false);
+      rampVolume(0, () => {
+        audio.pause();
+      });
     } else {
-      audioRef.current
-        .play()
-        .then(() => {
-          setIsMusicPlaying(true);
-        })
-        .catch(() => {
-          setIsMusicPlaying(false);
-        });
+      startAudioSmoothly();
     }
   };
 
   return (
     <div className="app">
-      {/* Background Music */}
-      <audio ref={audioRef} loop preload="auto">
+      {/* Background Soundtrack (never autoplays before explicit interaction) */}
+      <audio
+        ref={audioRef}
+        loop
+        preload="metadata"
+        onError={() => setHasAudioError(true)}
+      >
         <source src="/audio/wedding-music.mp3" type="audio/mpeg" />
       </audio>
 
-      {/* Floating Particles */}
+      {/* Subtle Ambient Light Motes */}
       {isInvitationOpen && <FloatingParticles />}
 
       {/* Persistent Music Toggle */}
       {isInvitationOpen && (
-        <MusicToggle isPlaying={isMusicPlaying} onToggle={toggleMusic} />
+        <MusicToggle
+          isPlaying={isMusicPlaying}
+          hasError={hasAudioError}
+          onToggle={toggleMusic}
+        />
       )}
 
-      {/* Realistic 3D Envelope Opening Screen */}
+      {/* Opening Envelope Experience */}
       <EnvelopeOpening onOpen={handleOpenInvitation} isOpen={isInvitationOpen} />
 
-      {/* Main Website Content */}
+      {/* Main Editorial Story */}
       <main
-        ref={contentRef}
         className={`main-content ${isInvitationOpen ? 'visible' : 'hidden'}`}
+        aria-hidden={!isInvitationOpen}
       >
-        {/* Scroll-Driven LOVE Typography Hero Section */}
-        <LoveHeroSection />
-
-        {/* Existing Sections Preserved (RSVP Section Removed as Requested) */}
+        <HeroSection />
+        <LoveHeroSection isActive={isInvitationOpen} />
         <GreetingSection />
         <CountdownSection />
         <EventDetails />
         <LocationSection />
-        <GallerySection />
+        <GallerySection isActive={isInvitationOpen} />
         <WishesSection />
         <Footer />
       </main>

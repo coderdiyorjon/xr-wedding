@@ -1,132 +1,141 @@
-/* ===== Greeting Section ===== */
+/* ===== Physical Luxury Ivory Wedding Invitation Card ===== */
 
 .greeting {
-  padding: var(--section-padding);
-  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-pink-light) 50%, var(--color-cream) 100%);
+  padding: clamp(72px, 10vw, 132px) 20px;
+  background: linear-gradient(
+    180deg,
+    var(--color-black) 0%,
+    #1c1712 12%,
+    var(--color-ivory) 32%,
+    var(--color-ivory) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
 }
 
-.greeting__container {
+.greeting__card {
   position: relative;
-  max-width: 700px;
+  width: 100%;
+  max-width: 740px;
   margin: 0 auto;
+  padding: clamp(48px, 8vw, 88px) clamp(26px, 7vw, 76px);
+  background: linear-gradient(160deg, #fcfaf5 0%, var(--color-ivory) 55%, #f3ece0 100%);
+  border: 1px solid rgba(185, 154, 98, 0.52);
+  box-shadow:
+    0 32px 72px rgba(8, 7, 6, 0.24),
+    0 4px 16px rgba(185, 154, 98, 0.12);
   text-align: center;
-  padding: 60px 40px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
+  overflow: hidden;
 }
 
-/* Corner ornaments */
-.greeting__corner-ornament {
+.greeting__inner-frame {
   position: absolute;
-  color: var(--color-gold);
-  font-size: 1.5rem;
-  opacity: 0.4;
+  inset: 14px;
+  border: 1px solid rgba(185, 154, 98, 0.34);
+  pointer-events: none;
 }
 
-.greeting__corner-ornament--top-left {
-  top: 16px;
-  left: 20px;
-  transform: rotate(-90deg);
+.greeting__corner {
+  position: absolute;
+  width: clamp(92px, 16vw, 156px);
+  height: clamp(92px, 16vw, 156px);
+  opacity: 0.72;
+  pointer-events: none;
 }
 
-.greeting__corner-ornament--top-right {
-  top: 16px;
-  right: 20px;
-  transform: rotate(0deg) scaleX(-1);
+.greeting__corner--tl {
+  top: 14px;
+  left: 14px;
 }
 
-.greeting__corner-ornament--bottom-left {
-  bottom: 16px;
-  left: 20px;
-  transform: rotate(180deg) scaleX(-1);
+.greeting__corner--tr {
+  top: 14px;
+  right: 14px;
+  transform: scaleX(-1);
 }
 
-.greeting__corner-ornament--bottom-right {
-  bottom: 16px;
-  right: 20px;
-  transform: rotate(90deg);
+.greeting__corner--bl {
+  bottom: 14px;
+  left: 14px;
+  transform: scaleY(-1);
 }
 
-/* Ornament */
-.greeting__ornament-top {
-  color: var(--color-gold);
-  font-size: 0.8rem;
-  letter-spacing: 12px;
-  margin-bottom: 24px;
+.greeting__corner--br {
+  bottom: 14px;
+  right: 14px;
+  transform: rotate(180deg);
 }
 
-/* Heading */
+.greeting__body {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.greeting__monogram {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-script);
+  font-size: clamp(2.1rem, 4.5vw, 2.9rem);
+  color: var(--color-gold-dark);
+  line-height: 1;
+}
+
 .greeting__heading {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 600;
-  color: var(--color-burgundy);
-  margin-bottom: 20px;
-  font-style: italic;
+  font-size: clamp(1.65rem, 3.8vw, 2.55rem);
+  font-weight: 500;
+  color: var(--color-brown);
+  letter-spacing: 0.12em;
+  margin-top: 10px;
 }
 
-/* Divider */
-.greeting__divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin: 24px 0 32px;
-}
-
-.greeting__divider-line {
-  display: block;
-  width: 70px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
-}
-
-.greeting__divider-icon {
-  font-size: 1.4rem;
-}
-
-/* Text */
 .greeting__text {
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
-  color: var(--color-dark);
-  line-height: 1.9;
-  margin-bottom: 16px;
+  font-family: var(--font-heading);
+  font-size: clamp(1.18rem, 2.5vw, 1.48rem);
+  color: var(--color-brown);
+  line-height: 1.75;
   font-weight: 400;
 }
 
-.greeting__text--secondary {
-  color: var(--color-dark-muted);
-  font-size: clamp(0.88rem, 2.3vw, 1.05rem);
-  font-style: italic;
+.greeting__signature {
+  margin-top: 32px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brown-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* Bottom ornament */
-.greeting__ornament-bottom {
-  color: var(--color-burgundy);
-  font-size: 2rem;
-  margin-top: 24px;
-  opacity: 0.6;
+.greeting__signature-names {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 4.5vw, 2.65rem);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--color-brown);
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .greeting {
-    padding: var(--section-padding-mobile);
+    padding: 56px 14px;
   }
 
-  .greeting__container {
-    padding: 40px 24px;
+  .greeting__card {
+    padding: 46px 22px;
   }
 
-  .greeting__corner-ornament {
-    font-size: 1.2rem;
+  .greeting__inner-frame {
+    inset: 10px;
+  }
+
+  .greeting__corner {
+    width: 78px;
+    height: 78px;
+    opacity: 0.55;
   }
 }

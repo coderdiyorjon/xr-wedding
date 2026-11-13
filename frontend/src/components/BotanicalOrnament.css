@@ -1,0 +1,34 @@
+.botanical-corner {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.botanical-crest {
+  width: min(180px, 48vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.botanical-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px auto 28px;
+}
+
+.botanical-divider__line {
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.botanical-divider__svg {
+  width: 58px;
+  height: 26px;
+  flex-shrink: 0;
+}

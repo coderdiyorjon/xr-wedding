@@ -1,39 +1,38 @@
-/* ===== Wishes Section ===== */
+/* ===== Editorial Congratulatory Wishes Section ===== */
 
 .wishes {
   padding: var(--section-padding);
-  background: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-pink-light) 50%, var(--color-cream) 100%);
-  min-height: 70vh;
+  background: linear-gradient(180deg, var(--color-black) 0%, #241c15 10%, var(--color-ivory) 22%, var(--color-ivory) 100%);
+  color: var(--color-brown);
 }
 
 .wishes__container {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
+  padding-top: 28px;
   text-align: center;
 }
 
-.wishes__ornament {
-  color: var(--color-gold);
-  font-size: 1.2rem;
-  margin-bottom: 16px;
-  letter-spacing: 8px;
-}
-
-/* Form wrapper */
 .wishes__form-wrapper {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: var(--border-radius-lg);
-  padding: 36px 32px;
-  box-shadow: var(--shadow-medium);
-  backdrop-filter: blur(10px);
-  margin-bottom: 48px;
+  background: #fcfaf5;
+  border: 1px solid rgba(185, 154, 98, 0.45);
+  padding: clamp(28px, 5vw, 48px);
+  box-shadow: var(--shadow-editorial);
+  margin-bottom: 56px;
 }
 
 .wishes__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
+}
+
+.wishes__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .wishes__field {
@@ -43,194 +42,176 @@
 .wishes__label {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-dark);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-brown);
   margin-bottom: 8px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .wishes__input,
 .wishes__textarea {
   width: 100%;
-  padding: 14px 18px;
+  padding: 14px 16px;
   font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--color-dark);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--color-brown);
   background: var(--color-ivory);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: var(--border-radius);
+  border: 1px solid rgba(185, 154, 98, 0.42);
   transition: var(--transition-smooth);
   resize: vertical;
 }
 
 .wishes__input:focus,
 .wishes__textarea:focus {
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+  border-color: var(--color-brown);
+  background: var(--color-white);
 }
 
 .wishes__input::placeholder,
 .wishes__textarea::placeholder {
-  color: var(--color-dark-muted);
-  opacity: 0.5;
+  color: var(--color-brown-muted);
+  opacity: 0.65;
 }
 
 .wishes__textarea {
-  min-height: 100px;
+  min-height: 112px;
 }
 
-/* Submit button */
-.wishes__submit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 16px 48px;
-  background: linear-gradient(135deg, var(--color-burgundy), var(--color-burgundy-dark));
-  color: var(--color-cream);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: var(--transition-smooth);
-  box-shadow: 0 4px 16px rgba(139, 34, 82, 0.3);
-  align-self: center;
-}
-
-.wishes__submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(139, 34, 82, 0.4);
-}
-
-.wishes__submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Spinner */
-.wishes__spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 248, 240, 0.3);
-  border-top-color: var(--color-cream);
-  border-radius: 50%;
-  animation: wishSpin 0.8s linear infinite;
-}
-
-@keyframes wishSpin {
-  to { transform: rotate(360deg); }
-}
-
-/* Error / Success messages */
 .wishes__error {
-  color: #e74c3c;
+  color: #8f2d2d;
   font-size: 0.85rem;
-  text-align: center;
-  padding: 8px;
-  background: rgba(231, 76, 60, 0.08);
-  border-radius: 8px;
+  padding: 10px 14px;
+  background: rgba(217, 166, 168, 0.18);
+  border-left: 2px solid #8f2d2d;
+  text-align: left;
 }
 
 .wishes__sent {
-  color: var(--color-burgundy);
-  font-size: 0.95rem;
-  text-align: center;
-  padding: 10px;
-  background: rgba(139, 34, 82, 0.06);
-  border-radius: 8px;
-  font-weight: 500;
+  color: var(--color-brown);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-style: italic;
+  padding: 12px 16px;
+  background: rgba(185, 154, 98, 0.12);
+  border-left: 2px solid var(--color-gold);
+  text-align: left;
 }
 
-/* Wishes List */
+.wishes__submit {
+  align-self: center;
+  padding: 15px 40px;
+  background-color: var(--color-brown);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-brown);
+}
+
+.wishes__submit:hover:not(:disabled) {
+  background-color: var(--color-black);
+  border-color: var(--color-gold);
+  color: var(--color-champagne);
+  transform: translateY(-2px);
+}
+
+.wishes__submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .wishes__list {
-  margin-top: 16px;
+  text-align: left;
 }
 
 .wishes__list-title {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--color-burgundy);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-brown);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.wishes__empty {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--color-brown-muted);
 }
 
 .wishes__cards {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
-/* Wish Card */
 .wishes__card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: var(--border-radius);
-  padding: 20px 24px;
-  text-align: left;
-  box-shadow: var(--shadow-soft);
+  background: #fcfaf5;
+  border: 1px solid rgba(185, 154, 98, 0.34);
+  padding: 22px 24px;
   transition: var(--transition-smooth);
 }
 
 .wishes__card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
   border-color: var(--color-gold);
 }
 
 .wishes__card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 12px;
 }
 
-.wishes__card-avatar {
-  width: 40px;
-  height: 40px;
+.wishes__card-initial {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-burgundy), var(--color-burgundy-light));
-  color: var(--color-cream);
+  border: 1px solid var(--color-gold);
+  color: var(--color-brown);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
   font-size: 1.2rem;
-  font-weight: 600;
   flex-shrink: 0;
+}
+
+.wishes__card-meta {
+  display: flex;
+  flex-direction: column;
 }
 
 .wishes__card-name {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--color-dark);
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-brown);
 }
 
 .wishes__card-date {
-  font-size: 0.75rem;
-  color: var(--color-dark-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--color-brown-muted);
 }
 
 .wishes__card-message {
-  font-size: 0.95rem;
-  color: var(--color-dark-muted);
-  line-height: 1.6;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
   font-style: italic;
-  position: relative;
-  padding-left: 16px;
-  border-left: 2px solid var(--color-gold);
+  color: var(--color-brown);
+  line-height: 1.65;
+  padding-left: 14px;
+  border-left: 1px solid var(--color-gold);
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .wishes {
     padding: var(--section-padding-mobile);
   }
@@ -239,7 +220,7 @@
     padding: 24px 18px;
   }
 
-  .wishes__card {
-    padding: 16px 18px;
+  .wishes__submit {
+    width: 100%;
   }
 }

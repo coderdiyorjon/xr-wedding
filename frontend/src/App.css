@@ -3,7 +3,8 @@
 .app {
   position: relative;
   min-height: 100vh;
-  background-color: var(--color-cream);
+  background-color: var(--color-black);
+  color: var(--color-ivory);
 }
 
 .main-content {
@@ -17,7 +18,7 @@
 
 .main-content.visible {
   display: block;
-  animation: contentReveal 0.8s ease-out forwards;
+  animation: contentReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes contentReveal {
@@ -25,6 +26,13 @@
     opacity: 0;
   }
   to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-content.visible {
+    animation: none;
     opacity: 1;
   }
 }
