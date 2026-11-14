@@ -10,12 +10,12 @@ function EventDetails() {
     {
       label: 'Sana',
       value: '2026-yil, 21-noyabr',
-      sub: 'Yakshanba kuni',
+      sub: 'Shanba kuni',
     },
     {
       label: 'Vaqt',
       value: 'Soat 13:00',
-      sub: 'Toshkent vaqti bilan',
+      sub: 'Jizzax vaqti bilan',
     },
     {
       label: 'Manzil',
@@ -41,7 +41,7 @@ function EventDetails() {
         >
           <span className="event__date-month">Noyabr</span>
           <div className="event__date-center">
-            <span className="event__date-dayname">Yakshanba</span>
+            <span className="event__date-dayname">Shanba</span>
             <span className="event__date-number">21</span>
             <span className="event__date-year">2026</span>
           </div>
